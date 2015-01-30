@@ -1,7 +1,6 @@
 # Redo DinnerClub class
 require "pry"
 
-
 class DinnerClub
   
   attr_accessor :member, :event
