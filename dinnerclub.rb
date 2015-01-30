@@ -1,34 +1,25 @@
 # Redo DinnerClub class
-
-require_relative "checksplitter"
 require "pry"
+
 
 class DinnerClub
   
   attr_accessor :member, :event
   
-  def initialize(event, member)
-    if !member.is_a(Array)
-      raise "ERROR! Enter an array for members."
-    end
+  def initialize(event, *member)
     @event = event
     @member = member
   end
   
-  def add_member
-  end
-  
-  def remove_member
+  def add_member(member)
+    @member << member
   end
   
   def show_members
     @member
   end
   
-  def member_report
-  end
-  
-  def add_event
+  def member_report_custom_tip_split
   end
   
   def show_event
@@ -36,3 +27,5 @@ class DinnerClub
   end
   
 end
+
+binding.pry
