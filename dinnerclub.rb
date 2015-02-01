@@ -5,27 +5,32 @@ require "pry"
 
 class DinnerClub
   
-  attr_accessor :member, :event
+  attr_accessor :members, :restaurant
   
-  def initialize
-    @member = {}
-    @event = []
+  def initialize(restaurant, *members)
+    @members = members
+    @restaurant = restaurant
+    @member_payment_history = 0.0
   end
   
   def add_member(name)
-    @member[name] = 0.0
+    @members[name] = 0.0
   end
   
   def show_members
-    @member
+    @members
   end
   
   def number_in_group
-    @member.length
+    @members.length
   end
   
-  def add_event(new)
-    new = @member  
+  def new_split_amount_custom_tip(amount)
+    @member_payment_history += @split_check_standard_tip
+  end
+  
+  def new_split_amount_custom_standard(split_check_standard_tip)
+    @member_payment_history += @split_check_standard_custom
   end
   
 end
@@ -45,7 +50,7 @@ class CheckSplitter
   # and divides by the group number to return the
   # value of what each person owes, rounded up. 
   def split_check_standard_tip
-    ((@meal_cost * 1.15) / @group_number).ceil
+    @split_check_standard_tip = ((@meal_cost * 1.15) / @group_number).ceil
   end
   
   # Define a new split check method with a custom
@@ -54,7 +59,7 @@ class CheckSplitter
   # number to return the value of what each person owes,
   # rounded up.   
   def split_check_custom_tip
-    ((@meal_cost * (1 + @tip)) / @group_number).ceil
+    @split_check_custom_tip = ((@meal_cost * (1 + @tip)) / @group_number).ceil
   end
 
 end
