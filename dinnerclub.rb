@@ -2,35 +2,92 @@
 # Each event will be a new instance of DinnerClub
 require "pry"
 
-
+# Public: #CheckSplitter
+# A class to create a Dinner Club event that adds and lists
+# members for each outing, stores the name of the restaurant
+# for the event and the amount each who attended the event owes
+# (by running the CheckSplitter class - WHICH I DO NOT HOW TO
+# DO!). Should give total amount each member has paid 
+# historically.
 class DinnerClub
   
   attr_accessor :members, :restaurant
-  
+    
+  # Public: initialize
+  # Sets initial values for DinnerClub object.
+  #
+  # Params:
+  # + members:                array, a collection of members
+  #                           attending Dinner Club event.
+  # + restaurant:             string, name of the restaurant.
+  # + member_payment_history: float, initial value set to 0.0.
+  #
+  # Returns:
+  # nil
+  #
+  # State Changes:
+  # Sets the three primary attribute variables.
   def initialize(restaurant, *members)
     @members = members
     @restaurant = restaurant
-    @member_payment_history = 0.0
+    @member_payment_history = {}
   end
-  
+
+  # Public: add_member
+  # Method that adds a new member with an initial value of 0.0
+  # to the members array.
+  #
+  # Params:
+  # name: string, new member name.
+  # 0.0:  float, initial value of member payment history.
+  #
+  # Returns:
+  # None.
+  #
+  # State Changes:
+  # New member with a member payment history of 0.0 added to
+  # members array.  
   def add_member(name)
     @members[name] = 0.0
   end
-  
+
+  # Public: show_member
+  # Method that shows the collection of member names.
+  #
+  # Params:
+  # None.
+  #
+  # Returns:
+  # Returns an array of member names and the float value of
+  # their member payment history.
+  #
+  # State Changes:
+  # None.   
   def show_members
     @members
   end
   
-  def number_in_group
-    @members.length
+  # I feel like I am violating the DRY principle with this
+  # method. Not sure what I am trying to do.
+  def new_split_amount_custom_tip(group_number, meal_cost, tip)
+    check_split = CheckSplitter.new(group_number, meal_cost, tip)
+    check_split.split_check_custom_tip
   end
   
-  def new_split_amount_custom_tip(amount)
-    @member_payment_history += @split_check_standard_tip
-  end
-  
-  def new_split_amount_custom_standard(split_check_standard_tip)
-    @member_payment_history += @split_check_standard_custom
+  # Public: update_payment_history
+  # Method that take the split amount and adds it to each 
+  # member's member payment history.
+  #
+  # Params:
+  # Unknown.
+  #
+  # Returns:
+  # Returns an array of member names and the float value of
+  # their new member payment history.
+  #
+  # State Changes:
+  # Updates the total for each member's member payment history. 
+  def update_payment_history
   end
   
 end
