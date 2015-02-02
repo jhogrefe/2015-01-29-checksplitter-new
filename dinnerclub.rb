@@ -35,9 +35,31 @@ class DinnerClub
   
 end
 
+# Public: #CheckSplitter
+# A class to determine how much each person in a group
+# owes based on the meal cost, and the amount of the split 
+# check based on tip (both standard 15% and a custom tip amount).
+
 class CheckSplitter
   
   attr_accessor :group_number, :meal_cost, :tip
+  
+  # Public: initialize
+  # Sets initial values for CheckSplitter object.
+  #
+  # Params:
+  # + meal_cost:    integer, total price (in dollars,
+  #                 rounded up)
+  # + group_number: integer, the number of people in group (not sure 
+  #                 how to pull in value from DinnerClub class when 
+  #                 getting an array count of the members).
+  # + tip:          integer, percentage to tip, e.g. 15% => 15
+  #
+  # Returns:
+  # nil
+  #
+  # State Changes:
+  # Sets the three primary attribute variables.
   
   def initialize(group_number, meal_cost, tip)
     @group_number = group_number
@@ -45,19 +67,46 @@ class CheckSplitter
     @tip = tip * 0.01
   end
   
-  # Define a new split check method with a standard
-  # tip of 15% that multiplies the meal cost by tip
-  # and divides by the group number to return the
-  # value of what each person owes, rounded up. 
+  # Public: split_check_standard_tip
+  # Method that gives how much each person owes based 
+  # on standard tip.
+  #
+  # Params:
+  # @meal_cost:    integer, total cost of bill.
+  # 1.15:          float, 15 percent standard tip.
+  # @group-number: integer, number of people in the group.
+  # .ceil:         method to round up float to integer.
+  #
+  # Returns:
+  # @split_check_standard_tip: integer, created from a rounded up
+  #                            float. Made split_check_standard_tip an
+  #                            an instance variable to use in DinnerClub
+  #                            class.
+  #
+  # State Changes:
+  # None.
   def split_check_standard_tip
     @split_check_standard_tip = ((@meal_cost * 1.15) / @group_number).ceil
   end
   
-  # Define a new split check method with a custom
-  # tip value entered when initialized that multiplies 
-  # the meal cost by tip and divides by the group 
-  # number to return the value of what each person owes,
-  # rounded up.   
+  # Public: split_check_custom_tip
+  # Method that gives how much each person owes based 
+  # on custom tip entered in initialize method parameters.
+  #
+  # Params:
+  # @meal_cost:    integer, total cost of bill.
+  # @tip:          float, tip percent entered in initialize params.
+  # @group-number: integer, number of people in the group.
+  # .ceil:         method to round up float to integer.
+  #
+  # Returns:
+  # @split_check_custom_tip:   integer, created from a rounded up
+  #                            float. Made split_check_custom_tip an
+  #                            an instance variable to use in DinnerClub
+  #                            class.
+  #
+  # State Changes:
+  # None.  
   def split_check_custom_tip
     @split_check_custom_tip = ((@meal_cost * (1 + @tip)) / @group_number).ceil
   end
